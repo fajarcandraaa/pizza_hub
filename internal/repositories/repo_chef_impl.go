@@ -18,12 +18,21 @@ func NewChefRepositories(db *gorm.DB) *ChefRepositories {
 	}
 }
 
-// NewChef implements ChefReposirotyContract.
-func (r *ChefRepositories) NewChef(ctx context.Context, payload entity.Chef) error {
-	panic("unimplemented")
-}
-
 // SignIng implements ChefReposirotyContract.
 func (r *ChefRepositories) SignIng(ctx context.Context, payload presentation.LoginRequest) (*entity.Chef, error) {
+	var (
+		chef = entity.Chef{}
+	)
+
+	err := r.db.Model(entity.Chef{}).Where("username = ?", payload.Username).Take(&chef).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return &chef, nil
+}
+
+// NewChef implements ChefReposirotyContract.
+func (r *ChefRepositories) NewChef(ctx context.Context, payload entity.Chef) error {
 	panic("unimplemented")
 }

@@ -8,6 +8,15 @@ import (
 	"github.com/google/uuid"
 )
 
+// TokenToResponse is function input token as object to response
+func TokenToResponse(token string) presentation.LoginResponse {
+	tokenData := presentation.LoginResponse{
+		Token: token,
+	}
+
+	return tokenData
+}
+
 func ChefRequestToDatabase(payload presentation.NewChefRequest) entity.Chef {
 	resp := entity.Chef{
 		ID:            uuid.NewString(),

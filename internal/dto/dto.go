@@ -11,10 +11,9 @@ func Login(username, password string) presentation.LoginRequest {
 	return resp
 }
 
-func ToResponse(status string, data interface{}) presentation.Response {
+func ToResponse(data interface{}) presentation.Response {
 	res := presentation.Response{
-		Status: status,
-		Data:   data,
+		Data: data,
 	}
 
 	return res
