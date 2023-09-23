@@ -1,5 +1,14 @@
 package presentation
 
+type LoginRequest struct {
+	Username string `json:"username,omitempty"`
+	Password string `json:"password,omitempty"`
+}
+
+type LoginResponse struct {
+	Token string `json:"token"`
+}
+
 type Response struct {
 	Status string      `json:"status"`
 	Data   interface{} `json:"data"`
