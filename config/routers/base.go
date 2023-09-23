@@ -7,7 +7,7 @@ import (
 	"os"
 
 	"github.com/fajarcandraaa/pizza_hub/config/app"
-	// "github.com/fajarcandraaa/pizza_hub/handler"
+	"github.com/fajarcandraaa/pizza_hub/test/seeder"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
 )
@@ -52,6 +52,7 @@ func (s *Serve) Initialize(Dbdriver, DbUser, DbPassword, DbPort, DbHost, DbName 
 
 	//Migration proccess
 	s.DB.Debug().AutoMigrate(registry...) //database migration
+	seeder.SeedData(s.DB)
 
 	s.Router = mux.NewRouter()
 
