@@ -2,7 +2,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is a simple app to implement time.sleep and waitgroup to handle concurency in golang, with back story is Pizza Hub
+This is a simple app to implement time.sleep and waitgroup to handle concurency in golang, with back story is Pizza Hub :smile:
 
 ### Built With
 
