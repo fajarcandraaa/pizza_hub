@@ -1,8 +1,10 @@
-# pizza_hub
+# SHORTENED URL
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is a simple app to implement time.sleep and waitgroup to handle concurency in golang, with back story is Pizza Hub
+This is a simple shortened url exercise. 
+For the exercise, use this documentation to build an API backend service, for simplyfy url link and use Base62 Encode method.
+We use base62 method to encode shortened Url because base62 encoder allows us to use the combination of characters and numbers which contains A-Z, a-z, 0–9 total( 26 + 26 + 10 = 62). So for 7 characters short URL, we can serve 62^7 ~= 3500 billion URLs which is quite enough in comparison to base10 (base10 only contains numbers 0-9 so you will get only 10M combinations). If we use base62 making the assumption that the service is generating 1000 tiny URLs/sec then it will take 110 years to exhaust this 3500 billion combination.
 
 ### Built With
 
@@ -29,7 +31,8 @@ And for additional information, i'm alredy setup unit-testing, just run `make te
 ## Documentation
 Here is more information on the process flow and API Contract documentation:
 
-[COMING SOONG](https://img.freepik.com/premium-photo/tablet-with-text-coming-soon-your-desktop-with-documents-business-finance-concept_324489-4164.jpg)
+* [Design system](https://docs.google.com/document/d/1PJ8AfhajSWCDgJUYy2092ffP2mMWHwsBfnMpVwGOE9c/edit?usp=sharing)
+* [API Documentation](https://drive.google.com/file/d/16nHGTpBsAy9KnfSuRmBiT8LD6_nx_RPZ/view?usp=sharing)
 
 ## Afterword
 Hopefully, it can be easily understood and useful. Thank you~
