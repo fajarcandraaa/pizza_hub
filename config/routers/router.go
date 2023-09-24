@@ -12,5 +12,4 @@ func (se *Serve) initializeRoutes() {
 
 	//initiate endpoint
 	chefRouter(p, s)
-	menuRouter(p, s)
 }
