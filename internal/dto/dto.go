@@ -2,10 +2,18 @@ package dto
 
 import "github.com/fajarcandraaa/pizza_hub/internal/presentation"
 
-func ToResponse(status string, data interface{}) presentation.Response {
+func Login(username, password string) presentation.LoginRequest {
+	resp := presentation.LoginRequest{
+		Username: username,
+		Password: password,
+	}
+
+	return resp
+}
+
+func ToResponse(data interface{}) presentation.Response {
 	res := presentation.Response{
-		Status: status,
-		Data:   data,
+		Data: data,
 	}
 
 	return res
