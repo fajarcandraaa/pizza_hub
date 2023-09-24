@@ -2,8 +2,8 @@ package repositories
 
 import (
 	"context"
+
 	"github.com/fajarcandraaa/pizza_hub/internal/entity"
-	"github.com/fajarcandraaa/pizza_hub/internal/presentation"
 	"github.com/jinzhu/gorm"
 )
 
@@ -55,9 +55,4 @@ func (r *OrderRepositories) UpdateFalseProgress(ctx context.Context, orderId str
 	}
 
 	return nil
-}
-
-// GetOrders implements OrderRepositoryContract.
-func (r *OrderRepositories) GetOrders(ctx context.Context, meta presentation.MetaPagination) ([]entity.Order, int64, error) {
-	panic("unimplemented")
 }
