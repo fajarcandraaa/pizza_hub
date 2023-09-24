@@ -44,7 +44,7 @@ func (s *MenuUseCase) GetListMenu(w http.ResponseWriter, r *http.Request) {
 
 	payload := dto.RequestParamToMeta(sortBy, orderBy, int(perPage), page)
 
-	menuData, total, err := s.service.MenuSerice.List(ctx, payload)
+	menuData, total, err := s.service.MenuService.List(ctx, payload)
 	if err != nil {
 		responder.ErrorJSON(w, http.StatusNotFound, err.Error())
 		return

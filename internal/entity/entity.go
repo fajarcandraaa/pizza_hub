@@ -6,6 +6,7 @@ type Error string
 const (
 	ErrPermissionNotAllowed = Error("permission.not_allowed")
 	ErrExpiredTime          = Error("Expired Link URL")
+	ErrStillInProgressTime  = Error("Previous process has not been completed")
 
 	//User Error
 	ErrUserNotExist             = Error("domain.user.error.not_exist")
