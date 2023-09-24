@@ -87,8 +87,3 @@ func (s *orderService) NewOrder(ctx context.Context, payload presentation.OrderR
 
 	return nil
 }
-
-// ListOrder implements OrderServiceContract.
-func (s *orderService) ListOrder(ctx context.Context, meta presentation.MetaPagination) (*presentation.Response, error) {
-	panic("unimplemented")
-}
