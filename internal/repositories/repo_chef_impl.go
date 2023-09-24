@@ -34,5 +34,10 @@ func (r *ChefRepositories) SignIng(ctx context.Context, payload presentation.Log
 
 // NewChef implements ChefReposirotyContract.
 func (r *ChefRepositories) NewChef(ctx context.Context, payload entity.Chef) error {
-	panic("unimplemented")
+	err := r.db.Create(&payload).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

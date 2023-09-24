@@ -3,6 +3,7 @@ package dto
 import (
 	"time"
 
+	"github.com/fajarcandraaa/pizza_hub/helpers"
 	"github.com/fajarcandraaa/pizza_hub/internal/entity"
 	"github.com/fajarcandraaa/pizza_hub/internal/presentation"
 	"github.com/google/uuid"
@@ -18,12 +19,13 @@ func TokenToResponse(token string) presentation.LoginResponse {
 }
 
 func ChefRequestToDatabase(payload presentation.NewChefRequest) entity.Chef {
+	pass, _ := helpers.HashPassword(payload.Password)
 	resp := entity.Chef{
 		ID:            uuid.NewString(),
 		CheffInitials: payload.CheffInitials,
 		CheffName:     payload.CheffName,
 		Username:      payload.Username,
-		Password:      payload.Password,
+		Password:      pass,
 		CreatedAt:     time.Time{},
 		UpdatedAt:     time.Time{},
 	}

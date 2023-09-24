@@ -46,5 +46,11 @@ func (s *chefService) Login(ctx context.Context, payload presentation.LoginReque
 
 // Insert implements ChefServiceContract.
 func (s *chefService) Insert(ctx context.Context, payload presentation.NewChefRequest) error {
-	panic("unimplemented")
+	dataPayload := dto.ChefRequestToDatabase(payload)
+	err := s.repo.Chef.NewChef(ctx, dataPayload)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

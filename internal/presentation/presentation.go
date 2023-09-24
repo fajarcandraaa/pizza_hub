@@ -10,8 +10,8 @@ type LoginResponse struct {
 }
 
 type Response struct {
-	Status string      `json:"status"`
-	Data   interface{} `json:"data"`
+	Status string      `json:"status,omitempty"`
+	Data   interface{} `json:"data,omitempty"`
 }
 
 type MetaPagination struct {
