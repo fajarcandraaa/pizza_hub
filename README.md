@@ -29,7 +29,7 @@ And for additional information, i'm alredy setup unit-testing, just run `make te
 ## Documentation
 Here is more information on the process flow and API Contract documentation:
 
-![COMING SOONG](https://img.freepik.com/premium-photo/tablet-with-text-coming-soon-your-desktop-with-documents-business-finance-concept_324489-4164.jpg)
+[POSTMAN API COLLECTION AND API CONTRACT](https://drive.google.com/file/d/1UeCsU7lZR-a8pOspmluKJMISgynhh2oQ/view?usp=sharing)
 
 ## Afterword
 Hopefully, it can be easily understood and useful. Thank you~
