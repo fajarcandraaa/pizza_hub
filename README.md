@@ -16,7 +16,7 @@ And supporting tools to easy managing redis caching like :
 
 <!-- GETTING STARTED -->
 ## Getting Started
-Before we get started, it's important to know that that this code use a custom command to execute it with makefile to make more simple command like :
+Before we get started, it's important to know that  before you run this code you have to make sure that `Redis` is already exist and ready to run on your device. Than this code use a custom command to execute it with makefile to make more simple command like :
 1. make update
 2. make tidy
 3. make start
