@@ -6,11 +6,10 @@ import (
 	"github.com/fajarcandraaa/pizza_hub/usecase"
 )
 
-func chefRouter(p *PathPrefix, s *service.Service) {
+func chefRouter(p *PathPrefix, s *service.Service, m *middleware.MiddlewareStruct) {
 	var (
 		chefUseCase = usecase.NewChefUseCase(s)
 	)
 
-	p.Chef.HandleFunc("/login", chefUseCase.Authentication).Methods("POST")
-	p.Chef.HandleFunc("", middleware.Authentication(chefUseCase.AddNewCheff)).Methods("POST")
+	p.Chef.HandleFunc("", m.BasicAuthMiddleware(chefUseCase.AddNewCheff)).Methods("POST")
 }

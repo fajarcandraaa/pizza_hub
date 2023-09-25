@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 	"fmt"
-	"sync"
+	"log"
 	"time"
 
 	"github.com/fajarcandraaa/pizza_hub/internal/dto"
@@ -29,7 +29,6 @@ func NewOrderService(repo *repositories.Repository, rds *redis.Client) *orderSer
 func (s *orderService) NewOrder(ctx context.Context, payload presentation.OrderRequest) error {
 	var (
 		duration time.Duration
-		wg       sync.WaitGroup
 		rdsKey   = fmt.Sprintf("inProgress-%s", payload.CheffInitials)
 	)
 
@@ -41,11 +40,6 @@ func (s *orderService) NewOrder(ctx context.Context, payload presentation.OrderR
 	default:
 		return entity.ErrMenuNotExist
 	}
-	limiter := time.NewTicker(duration / 1)
-	ctxCancel, cancel := context.WithCancel(ctx)
-	defer cancel()
-
-	dto.TimeSleepDependMenu(payload.MenuCode)
 
 	rdsResult, err := s.rds.Exists(ctx, rdsKey).Result()
 	if err != nil {
@@ -56,27 +50,23 @@ func (s *orderService) NewOrder(ctx context.Context, payload presentation.OrderR
 	}
 	dataPayload := dto.OrderRequestToDatabase(payload)
 
-	wg.Add(1)
+	log.Print(duration)
+
 	go func() {
-		defer wg.Done()
-		<-limiter.C
-		err = s.rds.Set(ctxCancel, rdsKey, payload.MenuCode, duration).Err()
+		err = s.rds.Set(ctx, rdsKey, payload.MenuCode, duration).Err()
 		if err != nil {
-			<-ctxCancel.Done()
+			<-ctx.Done()
 			fmt.Errorf("error set order to redis")
 			return
 		}
 
-		err = s.repo.Order.CreateOrder(ctxCancel, dataPayload)
+		err = s.repo.Order.CreateOrder(ctx, dataPayload)
 		if err != nil {
-			<-ctxCancel.Done()
+			<-ctx.Done()
 			fmt.Errorf("error create order")
 			return
 		}
 	}()
-
-	wg.Wait()
-	limiter.Stop()
 
 	go func() {
 		err := s.repo.Order.UpdateFalseProgress(context.Background(), dataPayload.ID)
