@@ -39,7 +39,7 @@ func (s *orderService) NewOrder(ctx context.Context, payload presentation.OrderR
 	case "pzzabq":
 		duration = 5 * time.Second
 	default:
-		duration = 1 * time.Second
+		return entity.ErrMenuNotExist
 	}
 	limiter := time.NewTicker(duration / 1)
 	ctxCancel, cancel := context.WithCancel(ctx)
