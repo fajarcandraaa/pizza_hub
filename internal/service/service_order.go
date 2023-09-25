@@ -53,7 +53,7 @@ func (s *orderService) NewOrder(ctx context.Context, payload presentation.OrderR
 	log.Print(duration)
 
 	go func() {
-		err = s.rds.Set(ctx, rdsKey, payload.MenuCode, 120*time.Second).Err()
+		err = s.rds.Set(ctx, rdsKey, payload.MenuCode, duration).Err()
 		if err != nil {
 			<-ctx.Done()
 			fmt.Errorf("error set order to redis")
