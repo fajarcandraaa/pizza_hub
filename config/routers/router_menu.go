@@ -6,10 +6,10 @@ import (
 	"github.com/fajarcandraaa/pizza_hub/usecase"
 )
 
-func menuRouter(p *PathPrefix, s *service.Service)  {
+func menuRouter(p *PathPrefix, s *service.Service, m *middleware.MiddlewareStruct) {
 	var (
 		menuUseCase = usecase.NewMenuUseCase(s)
 	)
 
-	p.Menu.HandleFunc("", middleware.Authentication(menuUseCase.GetListMenu)).Methods("GET")
+	p.Menu.HandleFunc("", m.BasicAuthMiddleware(menuUseCase.GetListMenu)).Methods("GET")
 }

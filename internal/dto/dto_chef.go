@@ -32,3 +32,12 @@ func ChefRequestToDatabase(payload presentation.NewChefRequest) entity.Chef {
 
 	return resp
 }
+
+func LoginRequest(username, password string) presentation.LoginRequest {
+	resp := presentation.LoginRequest{
+		Username: username,
+		Password: password,
+	}
+
+	return resp
+}

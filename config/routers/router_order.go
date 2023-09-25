@@ -6,10 +6,10 @@ import (
 	"github.com/fajarcandraaa/pizza_hub/usecase"
 )
 
-func orderRouter(p *PathPrefix, s *service.Service) {
+func orderRouter(p *PathPrefix, s *service.Service, m *middleware.MiddlewareStruct) {
 	var (
 		orderUseCase = usecase.NewOrderUseCase(s)
 	)
 
-	p.Order.HandleFunc("", middleware.Authentication(orderUseCase.PlaceOrder)).Methods("POST")
+	p.Order.HandleFunc("", m.BasicAuthMiddleware(orderUseCase.PlaceOrder)).Methods("POST")
 }
