@@ -9,6 +9,7 @@ import (
 )
 
 const (
+	FakeToken          = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JpemVkIjp0cnVlLCJleHAiOjE2OTU2MDQwMDcsImluaXRpYWxzIjoiQ2hlZjAxIn0.vOcEUNTi1xY8YhRQaoY_xH9fRknK3hlwmiR9pbWspUg"
 	FakeInitialsChef01 = "Chef01"
 	FakeNameChef01     = "So Klienz"
 	FakeUsernameChef01 = "chef01"

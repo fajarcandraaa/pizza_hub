@@ -1,14 +1,12 @@
 package helpers
 
 import (
-	"errors"
-	"fmt"
-	"math"
-	"math/rand"
+	"log"
+	"os"
 	"strings"
-	"time"
 	"unicode"
 
+	"github.com/dgrijalva/jwt-go"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -38,52 +36,29 @@ func IsNumber(s string) bool {
 	}
 	return true
 }
+func GetToken(bearerToken string) string {
+	header := strings.TrimSpace(bearerToken)
+	token := strings.Split(header, " ")[1]
 
-func Base62Encode(number uint64) string {
-	length := len(alphabet)
-	var encodedBuilder strings.Builder
-	encodedBuilder.Grow(10)
-	for ; number > 0; number = number / uint64(length) {
-		encodedBuilder.WriteByte(alphabet[(number % uint64(length))])
-	}
+	return token
 
-	return encodedBuilder.String()
 }
 
-func Base62Decode(encodedString string) (uint64, error) {
-	var number uint64
-	length := len(alphabet)
+func ExtractClaims(tokenStr string) (jwt.MapClaims, bool) {
+	hmacSecretString := os.Getenv("API_SECRET")
+	hmacSecret := []byte(hmacSecretString)
+	token, err := jwt.Parse(tokenStr, func(token *jwt.Token) (interface{}, error) {
+		return hmacSecret, nil
+	})
 
-	for i, symbol := range encodedString {
-		alphabeticPosition := strings.IndexRune(alphabet, symbol)
-		if alphabeticPosition == -1 {
-			return uint64(alphabeticPosition), errors.New("cannot find symbol in alphabet")
-		}
-		number += uint64(alphabeticPosition) * uint64(math.Pow(float64(length), float64(i)))
+	if err != nil {
+		return nil, false
 	}
 
-	return number, nil
-}
-
-func EnforceHTTP(url string) (string, error) {
-	if url == "" {
-		return "", fmt.Errorf("this is not url")
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		return claims, true
+	} else {
+		log.Printf("Invalid JWT Token")
+		return nil, false
 	}
-	if url[:4] != "http" {
-		return "http://" + url, nil
-	}
-	return url, nil
-}
-
-func GenerateShortKey() string {
-	const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-	const keyLength = 6
-
-	rand.New(rand.NewSource(time.Now().UnixNano()))
-	// rand.Seed(time.Now().UnixNano())
-	shortKey := make([]byte, keyLength)
-	for i := range shortKey {
-		shortKey[i] = charset[rand.Intn(len(charset))]
-	}
-	return string(shortKey)
 }
